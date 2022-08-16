@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar dados</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+   
+  
+</head>
+<body>
+    <form>
+        <label for="calibre">Calibre:</label><br>
+        <input type="text" id="calibre" name="calibre" placeholder="Digite um calibre"><br>
+
+        <label for="peso">Peso:</label><br>
+        <input type="text" id="peso" name="peso" placeholder="Digite um peso"><br>
+
+        <label for="comprimento">Comprimento:</label><br>
+        <input type="text" id="comprimento" name="comprimento" placeholder="Digite um comprimento"><br>
+
+        <label for="tipo">Tipo:</label><br>
+        <input type="text" id="tipo" name="tipo" placeholder="Digite um tipo"><br><br>
+
+        <input type="submit" value="Salvar">
+
+      </form>
+      
+      <script>axios.post('http://localhost:3000/cadastro', {
+        calibre: document.querySelector("#calibre"),
+        peso: document.querySelector("#peso"),
+        comprimento: document.querySelector("#comprimento"),
+        tipo: document.querySelector("#tipo")
+        
+
+      },{headers: {'Content-Type': 'application/json'}})
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });</script>
+</body>
+</html>

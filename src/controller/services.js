@@ -2,15 +2,29 @@ const express = require('express');
 const app = express();
 const {connection} = require('../db/mysql.js');
 const comando = 'SELECT * FROM ammo';
+const porta = 3000;
+const axios = require("axios");
+
+
+axios.get("http://localhost:3000/consulta").then(function(resposta){
+  console.log(resposta.data);
+}).catch(function(error){
+    if(error){
+      console.log(error, "Erro ao conectar com axios");
+      
+    }
+});
 
 
 const consulta = (req, res) => { 
-    return connection.query(comando, function (erro, results) {
-    if (erro) throw erro;
-    if(!results) console.log("results sem retorno");
-  res.send(results);
+  res.header("Access-Control-Allow-Origin", "*");
+  return connection.query(comando, function (erro, results) {
+  if (erro) throw erro;
+  if(!results) console.log("results sem retorno");
+res.send(results);
 });
 }
+
 const cadastro = (req, res) => {
     //console.log(req);
     const {calibre,peso,comprimento,tipo} = req.body;

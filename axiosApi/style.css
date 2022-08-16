@@ -1,0 +1,24 @@
+td, th {
+  padding: .7em;
+  margin: 0;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+th{
+  background-color: #EEE;
+}
+td{
+  font-weight:bold;
+  background-color: #EEE;
+}
+
+table{
+  width: 100%;
+  margin-bottom : .5em;
+  table-layout: fixed;
+  text-align: center;
+}
+body {
+  background-color: green;
+}

@@ -1,10 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-   
-    <title>Front-end</title>
+
+  <title>Front-end</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="module" src="/src/db/mysql.js"></script>
 </head>
-<body>
-    <div id="renderresults"></div>
+  
+  <button onclick="window.location.href='cadastrar.html'">Cadastrar Munição</button>
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <td>id</td>
+        <td> calibre </td>
+        <td> peso </td>
+        <td>comprimento</td>
+        <td>tipo</td>
+      </tr>
+
+    </thead>
+    <tbody id="data">
+
+    </tbody>
+  </table>
+  
+</div>
+
+<script> axios.get("http://localhost:3000/consulta", {})
+    .then(response => {
+      let temp = "";
+      response.data.forEach((itemData) => {
+        temp += "<tr>";
+        temp += "<td>" + itemData.id + "</td>";
+        temp += "<td>" + itemData.calibre + "</td>";
+        temp += "<td>" + itemData.peso + "</td>";
+        temp += "<td>" + itemData.comprimento + "</td>";
+        temp += "<td>" + itemData.tipo + "</td>";
+      });
+      document.getElementById('data').innerHTML = temp;
+
+      console.log(response.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
+  /*axios.get("http://localhost:3000/consulta").then(
+    res => {
+      res.json().then(
+        data => {
+          console.log(data.data);
+          if (data.data.length > 0) {
+  
+           
+            
+          }
+        }
+      )
+    }
+  )*/
+</script>
+
 </body>
+
 </html>
