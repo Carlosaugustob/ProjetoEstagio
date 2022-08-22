@@ -6,7 +6,6 @@ app.use(router);
 const porta = 3000;
 
 
-
 app.listen(porta, function(erro){
     if(erro) console.log(erro);
     console.log("Server rodando na porta: ", porta);

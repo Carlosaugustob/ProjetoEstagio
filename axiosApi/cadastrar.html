@@ -1,43 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Cadastrar dados</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-   
+  <meta charset="UTF-8">
+  <title>Cadastrar dados</title>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  
   
 </head>
+
 <body>
-    <form>
-        <label for="calibre">Calibre:</label><br>
-        <input type="text" id="calibre" name="calibre" placeholder="Digite um calibre"><br>
 
-        <label for="peso">Peso:</label><br>
-        <input type="text" id="peso" name="peso" placeholder="Digite um peso"><br>
+  <h1>Cadastro de municao</h1>
 
-        <label for="comprimento">Comprimento:</label><br>
-        <input type="text" id="comprimento" name="comprimento" placeholder="Digite um comprimento"><br>
+  <form id="form">
 
-        <label for="tipo">Tipo:</label><br>
-        <input type="text" id="tipo" name="tipo" placeholder="Digite um tipo"><br><br>
+    <label for="calibre">Calibre:</label><br>
+    <input type="text" id="calibre" placeholder="Digite um calibre"><br>
 
-        <input type="submit" value="Salvar">
+    <label for="peso">Peso:</label><br>
+    <input type="text" id="peso" placeholder="Digite um peso"><br>
 
-      </form>
-      
-      <script>axios.post('http://localhost:3000/cadastro', {
-        calibre: document.querySelector("#calibre"),
-        peso: document.querySelector("#peso"),
-        comprimento: document.querySelector("#comprimento"),
-        tipo: document.querySelector("#tipo")
-        
+    <label for="comprimento">Comprimento:</label><br>
+    <input type="text" id="comprimento" placeholder="Digite um comprimento"><br>
 
-      },{headers: {'Content-Type': 'application/json'}})
+    <label for="tipo">Tipo:</label><br>
+    <input type="text" id="tipo" placeholder="Digite um tipo"><br><br>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+
+    const form = document.getElementById('form');
+
+    form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+   
+    
+
+    formData.append('calibre', form[0].value);
+    formData.append('peso', form[1].value);
+    formData.append('comprimento', form[2].value);
+    formData.append('tipo', form[3].value);
+   
+
+      const body = {
+       calibre: form[0].value,
+       peso: form[1].value,
+       comprimento: form[2].value, 
+       tipo: form[3].value
+      }
+      //console.log(body)
+
+      const jSonBody = JSON.stringify(body)
+      //console.log(jSonBody);
+
+    axios
+    .post("http://localhost:3000/cadastro", {
+     
+      calibre: body.calibre,
+      peso: body.peso,
+      comprimento: body.comprimento,
+      tipo: body.tipo,
+    })
+    .then((response) => displayOutput(response))
+    .catch((err) => console.log(err));
+
+      /*const res =  axios.post('http://localhost:3000/cadastro', jSonBody)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))*/
+   
+    })
+       
+    /*axios.post('https://localhost:3000/consulta', {
+
+      calibre: document.querySelector("#calibre"),
+      peso: document.querySelector("#peso"),
+      comprimento: document.querySelector("#comprimento"),
+      tipo: document.querySelector("#tipo"),
+
+      submit: document.querySelector("submit")
+
+    }, { headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {
         console.log(response);
       })
       .catch(function (error) {
         console.error(error);
-      });</script>
+
+      });*/
+
+   /* function postar() {
+      document.getElementById("Enviar").innerHTML
+      //window.alert("postar");
+      const cadastrar =  axios.create({baseURL:'https://localhost:3000/cadastro' }) 
+      axios.post(cadastrar, {
+        
+        calibre: ".22",
+        peso: "2kg",
+        comprimento: "13",
+        tipo: "1" 
+        //calibre: '#calibre',
+        //peso: '#peso',
+        //comprimento: '#comprimento',
+        //tipo: '#tipo'
+
+
+      }, { headers: { 'Content-Type': 'application/json' } }) 
+        .then(function (response) {
+          window.alert(response);
+        
+        })
+        .catch(function (error) {
+          window.alert(error)
+          //console.log(error);
+        });
+
+    }*/
+
+  </script>
 </body>
+
 </html>
